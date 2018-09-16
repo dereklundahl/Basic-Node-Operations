@@ -1,0 +1,60 @@
+1. Run the commands sort, wc and uniq on the commands.js file. Explain how they work and what the output was.
+
+A: The sort command sorts lines in alphabetical or numeric order depending on the data. When I ran it on the bash.js file however, the first line seems correct in that it should be the first alphabetically, but the second line starts with a 'u', even though there is another line that starts with a 'c'. I am not really sure how to explain why this is happening other than the special characters and spaces may be causing unexpected behaviour with the sort.
+
+WC provides the line, word, and bit count of a file. When I run it on bash.js I get 9, 16, and 214. The 9 represents the lines in the file, including the white space. The 16 is the number of words that break on a space. For example `process.stdout.write` reads as a single word since there is no spacing. When there is a space, wc counts the next item as a word, even if it is a special character.
+
+When I run uniq on bash.js, there are no changes to the file when it is displayed. This is because the word spacing prevents words like 'process' in `process.stdout` and 'process.stdin` to be read as different words.
+
+2. Using the pipe (|) connect at least two commands and run it on commands.js. Explain what the output was and why the specific data was outputted.
+
+A: `grep -i "function" commands.js | wc` returns 4, 12, and 120. What is happening is the `grep -i "function" finds the words that start with function and pipes the result into `wc` which outputs 4 since there are 4 function calls. The 12 is returned because there are 12 lines total, counting from each first function word to the next. The 120 is the number of bits with just the lines with the function word included.
+
+`grep -i "const" commands.js | sed 's/const/var/'` finds all of the lines that start with const and pipes it into `sed 's/const/var/'` which changes all of the `const` variables to `var`. The result is 
+
+```
+var fs = require("fs");
+  var userInputArray = userInput.split(" ");
+  var command = userInputArray[0];
+var commandLibrary = {
+    var fileName = fullPath[0];
+
+```
+
+6. In this checkpoint, you encountered built-in JavaScript methods as well as the new ES6 syntax. Review the information below before attempting the programming challenge.
+
+Reverse String
+
+Given a string, reverse the order of characters in each word within a sentence while maintaining the original word order and whitespace and return the string. To improve your problem-solving experience, use the suggested functions to solve the problem.
+
+Example
+Input: "I'm learning to program algorithms!"
+Output: "m'I gninrael ot margorp !smhtirogla"
+
+Hint: Look at the examples above to figure out how to refactor your forEach loop to use an arrow function.
+```
+var testInput = "I'm learning to program algorithms!";
+
+  
+
+const reverseString = str => {
+    
+  var strArray = str.split(" ");
+    
+  var newArray = [];
+    
+  strArray.forEach((element) => {
+      
+    newArray.push(element.split("").reverse().join(""));
+    
+    });
+    
+  console.log(newArray.join(" "));
+  
+}
+
+  
+
+reverseString(testInput);
+
+```
